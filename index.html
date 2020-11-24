@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>STUDIOFRU. | A contemporary art and digital design practice studio based in Cirebon, Indonesia.</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.gif" rel="icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Startup Modal  -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>-->
+  
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Knewave' rel='stylesheet'>
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+<!--===============================================================================================-->
+<meta name="google-site-verification" content="a7QFQcIlEtnMMRY6lSqoEzACS5PrHN5wgwVP72FW1pg"/>
+<!--===============================================================================================-->
+<meta name="keywords" content="farhanaz rupaidha, web designer cirebon, graphic design cirebon, media arts indonesia, 3D modelling cirebon"/>
+<meta name="description" content="A contemporary art and digital design practice studio based in Cirebon, Indonesia.">
+<meta name="author" content="Farhanaz Rupaidha | Studiofru / https://studiofru.space">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://studiofru.space">
+<meta property="og:image" content="assets/img/studiofru-logo.png">
+<meta property="og:title" content="Farhanaz Rupaidha | Studiofru/">
+<meta property="og:description" content="A contemporary art and digital design practice studio based in Cirebon, Indonesia.">
+<!--===============================================================================================-->
+ <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121797125-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121797125-3');
+</script>
+<!--===============================================================================================-->
+<script data-ad-client="ca-pub-5314296649303404" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!--===============================================================================================-->
+
+<script>
+	$(document).ready(function(){
+		$("#myModal").modal('show');
+	});
+</script>
+  
+</head>
+
+<body>
+
+<!-- Large modal -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog" style="max-width: 100%; width: 1200px; height: 550px;" role="document">
+    <div class="modal-content">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+ <div style="position: absolute; z-index: 1; left: 15%; top: 45%; font-family: 'Knewave'; font-size: 40px; color: black;">
+        Your next big thing. Brought to you by <span style="font-style:italic;">STUDIOFRU.</span>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.0/processing.min.js"></script>
+<script type="application/processing">
+
+int value = 255;
+Run run;
+int numFrames = 12;
+int currentFrame = 0;
+int r = value;
+float a = 0.0;
+float s = 0.0;
+float theta;
+float radio;
+float rx= 0;
+float ry= 0;
+float y = 0;
+float x= 0;
+
+void setup (){
+  size (1200, 550, P3D);
+  background (0);
+  frameRate (40);
+  run = new Run();
+  cursor(CROSS);
+for (int i = 0; i<150; i++){
+  run.addBoid (new Boid (width/2 + mouseX, height/2+5));
+  radio = height;
+}
+}
+
+void draw(){
+
+run.run();
+
+translate (width/2,height/2);
+}
+
+
+void mouseMoved(){
+  color c = color (31,16,116);
+  fill (value);
+  if (value == c) {
+  value = 0;
+  } else {
+  value = c;
+  }
+}
+
+void mouseClicked (){   
+  color c = color (255,0,0);
+  fill (value);
+  if (value == c) {
+  value = 0;
+  } else {
+  value = c;
+  }
+}
+
+void mousePressed (){
+  color c = color (31,16,116);
+  background (value);
+  for (int i = 0; i<80; i++){
+  run.addBoid (new Boid (width/2, height/2 * mouseY));
+}
+  if (value == c) {
+  value = 0;
+  } else {
+  value = c;
+  }
+}
+
+void mouseDragged (){
+  float rxp = ((mouseX-(width/2))*0.005);
+  float ryp = ((mouseY-(height/2))*0.005);
+  rx = (rx*0.9)+(rxp*0.5);
+  ry = (ry*0.9)+(ryp*0.5);
+  rotateY(rx);
+  rotateX(ry);
+  a = mouseX;
+  s = cos(a)*10;
+  box (80);
+}
+
+class Boid {
+  PVector position;
+  PVector velocity;
+  PVector acceleration;
+  float r;
+  float maxforce;    
+  float maxspeed;    
+
+    Boid(float x, float y) {
+    acceleration = new PVector(0, 0);
+    float angle = random(TWO_PI);
+    velocity = new PVector(sin(angle), cos(angle));
+
+    position = new PVector(x, y);
+  r = 2;
+    maxspeed = 2;
+    maxforce = 0.03;
+  }
+
+  void run(ArrayList<Boid> boids) {
+    flock(boids);
+    update();
+    borders();
+    render();
+  }
+
+  void applyForce(PVector force) {
+    acceleration.add(force);
+  }
+
+  void flock(ArrayList<Boid> boids) {
+    PVector sep = separate(boids);   
+    PVector ali = align(boids);      
+    PVector coh = cohesion(boids);   
+    sep.mult(1.5);
+    ali.mult(1.0);
+    coh.mult(1.0);
+    applyForce(sep);
+    applyForce(ali);
+    applyForce(coh);
+ 
+  }
+
+  void update() {
+    velocity.add(acceleration);
+    velocity.limit(maxspeed);
+    position.add(velocity);
+    acceleration.mult(0);
+  }
+
+  PVector seek(PVector target) {
+    PVector desired = PVector.sub(target, position);  
+    desired.normalize();
+    desired.mult(maxspeed);
+    PVector steer = PVector.sub(desired, velocity);
+    steer.limit(maxforce);  
+    return steer;
+  }
+
+  void render() {
+    float theta = velocity.heading2D() + radians(360);
+    fill(value);
+    stroke (44,8,255);
+     pushMatrix();
+     translate(position.x,position.y);
+     rotate(theta);
+     box (15);
+     rotateY(1.0); 
+     rotateZ(2.0); 
+     rotateX(frameCount / 80.0);
+     popMatrix();
+
+  }
+
+  void borders() {
+    if (position.x < -r) position.x = width+r;
+    if (position.y < -r) position.y = height+r;
+    if (position.x > width+r) position.x = -r;
+    if (position.y > height+r) position.y = -r;
+  }
+
+  PVector separate (ArrayList<Boid> boids) {
+    float desiredseparation = 60.0f;
+    PVector steer = new PVector(0, 0, 0);
+    int count = 0;
+    for (Boid other : boids) {
+      float d = PVector.dist(position, other.position);
+      if ((d > 0) && (d < desiredseparation)) {
+        PVector diff = PVector.sub(position, other.position);
+        diff.normalize();
+        diff.div(d);        
+        steer.add(diff);
+        count++;          
+      }
+    }
+    if (count > 0) {
+      steer.div((float)count);
+    }
+
+    if (steer.mag() > 0) {
+      steer.normalize();
+      steer.mult(maxspeed);
+      steer.sub(velocity);
+      steer.limit(maxforce);
+    }
+    return steer;
+  }
+
+  PVector align (ArrayList<Boid> boids) {
+    float neighbordist = 50;
+    PVector sum = new PVector(0, 0);
+    int count = 0;
+    for (Boid other : boids) {
+      float d = PVector.dist(position, other.position);
+      if ((d > 0) && (d < neighbordist)) {
+        sum.add(other.velocity);
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div((float)count);
+      sum.normalize();
+      sum.mult(maxspeed);
+      PVector steer = PVector.sub(sum, velocity);
+      steer.limit(maxforce);
+      return steer;
+    } 
+    else {
+      return new PVector(0, 0);
+    }
+  }
+
+  PVector cohesion (ArrayList<Boid> boids) {
+    float neighbordist = 50;
+    PVector sum = new PVector(0, 0);   
+    int count = 0;
+    for (Boid other : boids) {
+      float d = PVector.dist(position, other.position);
+      if ((d > 0) && (d < neighbordist)) {
+        sum.add(other.position); 
+        count++;
+      }
+    }
+    if (count > 0) {
+      sum.div(count);
+      return seek(sum);  
+    } 
+    else {
+      return new PVector(0, 0);
+    }
+  }
+}
+
+class Run {
+  ArrayList<Boid> boids; 
+
+  Run() {
+    boids = new ArrayList<Boid>(); 
+  }
+
+  void run() {
+    for (Boid b : boids) {
+      b.run(boids);  
+    }
+  }
+
+  void addBoid(Boid b) {
+    boids.add(b);
+  }
+
+}
+
+</script>
+<canvas></canvas>
+    </div>
+  </div>
+</div>  
+
+  <!-- ======= Navbar ======= -->
+  <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
+    <div class="container py-2 py-md-5">
+      <div class="row align-items-start">
+        <div class="col-md-2">
+          <ul class="custom-menu">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Me</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="works.html">Works</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6 d-none d-md-block  mr-auto">
+          <div class="globe d-flex">
+            <span class="icofont-globe text-white mt-2 mr-3"></span>
+            <div>
+              <p><em>Visit Farhanaz Rupaidha's website <br> <a href="https://farhanazrupaidha.github.io">Click here.</a></em></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 d-none d-md-block">
+          <h3>Hire Me</h3>
+          <p>Swing by for a cup of coffee, or leave me a message: <br> <a href="#">studiofrustore@gmail.com</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <nav class="navbar navbar-light custom-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">STUDIOFRU.</a>
+
+      <a href="#" class="burger" data-toggle="collapse" data-target="#main-navbar">
+        <span></span>
+      </a>
+
+    </div>
+  </nav>
+
+  <main id="main">
+
+
+    <!-- ======= Works Section ======= -->
+    <section class="section site-portfolio">
+      <div class="container">
+        <div class="row mb-5 align-items-center">
+          <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
+            <h2 style="font-style:italic;">STUDIO BY FARHANAZ RUPAIDHA</h2>
+            <p class="mb-0">A contemporary art and digital design practice studio based in Cirebon, Indonesia.</p>
+          </div>
+          <div class="col-md-12 col-lg-6 text-left text-lg-right" data-aos="fade-up" data-aos-delay="100">
+            <div id="filters" class="filters">
+              <a href="#" data-filter="*" class="active">All</a>
+              <a href="#" data-filter=".web">Web</a>
+              <a href="#" data-filter=".design">Design</a>
+              <a href="#" data-filter=".branding">Media Arts</a>
+              <!--<a href="#" data-filter=".photography">Photography</a>-->
+            </div>
+          </div>
+        </div>
+        <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+          <div class="item web design col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a href="work-wangsakerta.html" class="item-wrap fancybox">
+              <div class="work-info">
+                <h3>Yayasan Wangsakerta</h3>
+                <span>Web & design</span>
+              </div>
+              <img class="img-fluid" src="assets/img/img_1.png">
+            </a>
+          </div>
+          <div class="item web col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a href="abdurrohmanwahid.html" class="item-wrap fancybox">
+              <div class="work-info">
+                <h3>Abdurrohman Wahid</h3>
+                <span>Web</span>
+              </div>
+              <img class="img-fluid" src="assets/img/img_2.png">
+            </a>
+          </div>
+          <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a href="re-imagining tribhuwana.html" class="item-wrap fancybox">
+              <div class="work-info">
+                <h3>HM Sampoerna - Wave of Tommorow 2019</h3>
+                <span>Interactive Installation</span>
+              </div>
+              <img class="img-fluid" src="assets/img/img_3.png">
+            </a>
+          </div>
+          <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a href="edwinsgallery-useyourillusion.html" class="item-wrap fancybox">
+              <div class="work-info">
+                <h3>Edwin's Gallery - Use Your Illusion Exhibition</h3>
+                <span>Design</span>
+              </div>
+              <img class="img-fluid" src="assets/img/img_4.png">
+            </a>
+          </div>
+          <div class="item design col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a href="pingpongcoffee.html" class="item-wrap fancybox">
+              <div class="work-info">
+                <h3>Ping Pong Coffee</h3>
+                <span>Design</span>
+              </div>
+              <img class="img-fluid" src="assets/img/img_5.png">
+            </a>
+          <!--</div>
+          <div class="item branding col-sm-6 col-md-4 col-lg-4 mb-4">
+            <a href="work-single.html" class="item-wrap fancybox">
+              <div class="work-info">
+                <h3>Amazon</h3>
+                <span>brandingn</span>
+              </div>
+              <img class="img-fluid" src="assets/img/img_6.jpg">
+            </a>
+          </div>-->
+        </div>
+      </div>
+    </section><!-- End  Works Section -->
+
+    <!-- ======= Clients Section ======= -->
+    <section class="section">
+      <div class="container">
+        <div class="row justify-content-center text-center mb-4">
+          <div class="col-5">
+            <h3 class="h3 heading">Who I Work With</h3>
+            <!--<p>Lorem ipsum dolor sit amet consectetur adipisicing elit explicabo inventore.</p>-->
+          </div>
+        </div>
+     
+        <div class="row">
+          <div class="col-4 col-sm-4 col-md-4">
+            <a href="#" class="client-logo"><img src="assets/img/logo-edwins gallery.png" alt="Image" class="img-fluid"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-4">
+            <a href="#" class="client-logo"><img src="assets/img/logo-wangsakerta.png" alt="Image" class="img-fluid"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-4">
+            <a href="#" class="client-logo"><img src="assets/img/logo-sampoerna.png" alt="Image" class="img-fluid"></a>
+          </div>
+          <!--<div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="assets/img/logo-netflix.png" alt="Image" class="img-fluid"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="assets/img/logo-nike.png" alt="Image" class="img-fluid"></a>
+          </div>
+          <div class="col-4 col-sm-4 col-md-2">
+            <a href="#" class="client-logo"><img src="assets/img/logo-google.png" alt="Image" class="img-fluid"></a>
+          </div>-->       
+
+        </div>
+      </div>
+    </section><!-- End Clients Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section class="section">
+      <div class="container">
+        <div class="row justify-content-center text-center mb-4">
+          <div class="col-5">
+            <h3 class="h3 heading">My Services</h3>
+            <!--<p>Lorem ipsum dolor sit amet consectetur adipisicing elit explicabo inventore.</p>-->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            <span class="la la-cube la-3x mb-4"></span>
+            <h4 class="h4 mb-2">Web Design</h4>
+            <p>Scalable front and back-end development website. Sleek, neat and engaging appearance.</p>
+            <ul class="list-unstyled list-line">
+              <li>Responsive</li>
+              <li>HTML5, CSS, JavaScript, Bootstrap 4</li>
+              <li>Wordpress, Wix, Squarespace</li>
+            </ul>
+          </div>
+         <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            <span class="la la-globe la-3x mb-4"></span>
+            <h4 class="h4 mb-2">Media Arts</h4>
+            <p>Conceptual and informative technological design. Build for specific event based on target spectators.</p>
+            <ul class="list-unstyled list-line">
+              <li>Art installation/exhibition design/immersive video/moving image</li>
+              <li>Digital interactive media design and development</li>
+              <li>Reactive audiovisual</li>
+              <li>Architectural/interior 3D design and modelling</li>
+            </ul>
+          </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+            <span class="la la-image la-3x mb-4"></span>
+            <h4 class="h4 mb-2">Graphic Design</h4>
+            <p>Minimalist, simplicity and balance-based graphic element. Any shape, any size, any occasion.</p>
+            <ul class="list-unstyled list-line">
+              <li>Complete branding</li>
+              <li>Logo & identity</li>
+              <li>Print & digital</li>
+            </ul>
+          </div>
+          <!--<div class="col-12 col-sm-6 col-md-6 col-lg-3">
+            <span class="la la-search la-3x mb-4"></span>
+            <h4 class="h4 mb-2">SEO</h4>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit explicabo inventore.</p>
+            <ul class="list-unstyled list-line">
+              <li>Lorem ipsum dolor sit amet consectetur adipisicing</li>
+              <li>Non pariatur nisi</li>
+              <li>Magnam soluta quod</li>
+              <li>Lorem ipsum dolor</li>
+              <li>Cumque quae aliquam</li>
+            </ul>
+          </div>-->
+        </div>
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <!--<section class="section pt-0">
+      <div class="container">
+
+        <div class="owl-carousel testimonial-carousel">
+
+          <div class="testimonial-wrap">
+            <div class="testimonial">
+              <img src="assets/img/person_1.jpg" alt="Image" class="img-fluid">
+              <blockquote>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
+                  explicabo inventore.</p>
+              </blockquote>
+              <p>&mdash; Jean Hicks</p>
+            </div>
+          </div>
+
+          <div class="testimonial-wrap">
+            <div class="testimonial">
+              <img src="assets/img/person_2.jpg" alt="Image" class="img-fluid">
+              <blockquote>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam necessitatibus incidunt ut officiis
+                  explicabo inventore.</p>
+              </blockquote>
+              <p>&mdash; Chris Stanworth</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <p class="mb-1">&copy; Copyright Studiofru. All Rights Reserved</p>
+          <div class="credits">
+            <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=MyPortfolio
+          -->
+            Designed by <a href="https://studiofru.space/">Studiofru</a>
+          </div>
+        </div>
+        <div class="col-sm-6 social text-md-right">
+          <a href="https://www.instagram.com/studiofru/"><span class="icofont-instagram"></span></a>
+          <a href="https://www.youtube.com/channel/UCPe5yVHCmunxQIx_TMZCRTA?view_as=subscriber"><span class="icofont-youtube"></span></a>
+          <!--<a href="#"><span class="icofont-dribbble"></span></a>
+          <a href="#"><span class="icofont-behance"></span></a>-->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
